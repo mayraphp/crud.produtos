@@ -1,99 +1,79 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+ <head>
+  <title>Import Excel File in Laravel</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </head>
+ <body>
+  <br />
 
-        <title>Laravel</title>
+  <div class="container">
+   <h3 align="center">Lista de Produtos</h3>
+    <br />
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+   <div class="form-inline">
+        <form id="excelForm" class="form-group" enctype="multipart/form-data">
+        <input type="file" class="form-control"  name="import_file" />
+        <button class="btn btn-success ml-3" type="submit" class="form-control">Importar Excel</button>
+        <input type="hidden" id='route-import' value="{{ route('import') }}">
+        </form>
+    </div>
+   <br />
+   <div class="panel panel-default">
+    <div class="panel-heading">
+     <h3 class="panel-title">Lista de Produtos</h3>
+    </div>
+    <div class="panel-body">
+     <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+       <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Quantidade</th>
+        <th>Valor</th>
+        <th>Descrição</th>
+        <th>Ações</th>
+       </tr>
+       @foreach($data as $row)
+       <tr>
+        <td>{{ $row->id }}</td>
+        <td>{{ $row->name }}</td>
+        <td>{{ $row->quantity }}</td>
+        <td>{{ $row->price }}</td>
+        <td>{{ $row->description }}</td>
+        <td></td>
+       </tr>
+       @endforeach
+      </table>
+     </div>
+    </div>
+   </div>
+  </div>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+  <script type="text/javascript">
+     $(document).ready(function(){
+     $('#excelForm').submit(function(event){
+     event.preventDefault();
+     var form = $('#excelForm')
 
-            .full-height {
-                height: 100vh;
-            }
+     var formdata = new FormData(document.getElementById("excelForm"));
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+     $.ajax({
+         url : $('#route-import').val(),
+         type : 'post',
+         data : formdata,
+         processData: false,
+         contentType: false
+    }).done(function(response) {
+        $('#title-page')
+    });
 
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
+    });
+});
+  </script>
+ </body>
 </html>
+
