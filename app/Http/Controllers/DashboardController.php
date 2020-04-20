@@ -9,8 +9,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        (new Product())->importProduct();
-
         $data = Product::all();
         return view('welcome', [
             'data' =>$data,

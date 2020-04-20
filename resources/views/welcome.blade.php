@@ -12,7 +12,6 @@
   <div class="container">
    <h3 align="center">Lista de Produtos</h3>
     <br />
-
    <div class="form-inline">
         <form id="excelForm" class="form-group" enctype="multipart/form-data">
         <input type="file" class="form-control"  name="import_file" />
@@ -21,10 +20,9 @@
         </form>
     </div>
    <br />
+   <p id="alert-queue"></p>
    <div class="panel panel-default">
-    <div class="panel-heading">
-     <h3 class="panel-title">Lista de Produtos</h3>
-    </div>
+   <div id="alert-queue"></div>
     <div class="panel-body">
      <div class="table-responsive">
       <table class="table table-bordered table-striped">
@@ -68,7 +66,7 @@
          processData: false,
          contentType: false
     }).done(function(response) {
-        $('#title-page')
+        $("#alert-queue").append("<div class='alert alert-success' role='alert'>"+ response.msg+"</div>");
     });
 
     });

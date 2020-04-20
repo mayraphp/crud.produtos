@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Product;
 
 class ProductController extends Controller
 {
 
     public function import(Request $request)
     {
-
         $file = file($request->file('import_file')->getRealPath());
         $data = array_slice($file, 1);
 
@@ -22,6 +21,8 @@ class ProductController extends Controller
 
             file_put_contents($fileName, $part);
         }
+
+        (new Product())->importProduct();
 
         return response()->json([
             'msg' => 'Produtos adicionados para fila de importação'
