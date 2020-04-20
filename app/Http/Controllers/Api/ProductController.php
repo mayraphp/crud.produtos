@@ -28,5 +28,20 @@ class ProductController extends Controller
             'msg' => 'Produtos adicionados para fila de importação'
         ]);
     }
+
+    public function show(Request $request)
+    {
+        $data = $request->all();
+
+        $product = Product::find($data['id']);
+
+        return response()->json([
+            'id' => $product->id,
+            'name' =>$product->name,
+            'quantity' =>$product->quantity,
+            'description' => $product->description,
+            'price' => $product->price,
+        ]);
+    }
 }
 

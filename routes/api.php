@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::namespace('Api')->prefix('products')->group(function(){
 
     Route::post('/import', 'ProductController@import')->name('import');
+    Route::post('/show', 'ProductController@show')->name('show');
 
 });
 

@@ -14,3 +14,4 @@
 use App\Product;
 
 Route::get('/', 'DashboardController@index')->name('dashboard');
+
