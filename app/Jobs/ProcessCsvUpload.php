@@ -39,8 +39,10 @@ class ProcessCsvUpload implements ShouldQueue
             $data = array_map('str_getcsv', file($this->file));
 
             foreach($data as $row) {
+
+                $product = Product::find($row[0]);
+
                 Product::updateOrCreate([
-                    'id'=>$row[0],
                     'name'=>$row[1],
                     'quantity'=>$row[2],
                     'price'=>$row[3],

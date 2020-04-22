@@ -22,6 +22,7 @@ Route::namespace('Api')->prefix('products')->group(function(){
 
     Route::post('/import', 'ProductController@import')->name('import');
     Route::post('/show', 'ProductController@show')->name('show');
+    Route::get('/destroy/{product}', 'ProductController@destroy')->name('destroy');
 
 });
 

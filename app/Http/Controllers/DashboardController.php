@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data = Product::all();
+        $data = Product::paginate(10);
         return view('welcome', [
             'data' =>$data,
         ]);

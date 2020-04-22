@@ -25,7 +25,7 @@ class ProductController extends Controller
         (new Product())->importProduct();
 
         return response()->json([
-            'msg' => 'Produtos adicionados para fila de importação'
+            'msg' => 'Produtos adicionados para fila de importação',
         ]);
     }
 
@@ -42,6 +42,15 @@ class ProductController extends Controller
             'description' => $product->description,
             'price' => $product->price,
         ]);
+    }
+
+    public function destroy($product)
+    {
+        $product = Product::find($product);
+
+        $product->delete();
+
+        return redirect()->route('dashboard');
     }
 }
 
